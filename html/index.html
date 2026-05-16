@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <title>Avita Sleep Calculator</title>
+        <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../images/avita.png" rel="icon" type="image/png"/>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <input type="checkbox" id="menu-toggle"/>
+                <label id="trigger" for="menu-toggle"></label>
+                <label id="burger" for="menu-toggle"></label>
+                <ul id="menu">
+                    <li><a href="https://avitahealth.ca/">Home</a></li>
+                    <li><a href="https://avitahealth.ca/services/" target="_blank">Services</a></li>
+                    <li><a href="https://avitahealth.ca/about/" target="_blank">About</a></li>
+                    <li><a href="https://avitahealth.ca/contact/" target="_blank">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <h1 id="Title">
+                SLEEP IS VERY² IMPORTANT
+            </h1>
+        </header>
+
+        <main>
+            <h2>Hi <span id="username"></span>!</h2>
+            
+            <div class="section section-transparent">
+                <div class="section-content">
+                    <p>
+                    Sleep, something that most of us take for granted, is a fundamental cornerstone for our health. Therefore, improving your sleep has ubiquitous positive impacts on your tomorrow but, more importantly, to the rest of your life as well. This coumpounding effect means that minor inconsistencies to your sleep can cause vast deterioriation of your health. This is why you should check your sleep debt with our sleep debt calculator, so that you find out if your sleep schedule is perfect or you can find out how to make vast improvements wihout doing vast amounts of additional work if it's not.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="gameUI">
+                <div id="messageBox">
+                    <p id="messageText"></p>
+                </div>
+            
+            <div>
+                <div class="section-content">
+                    <div id="gameUI">
+                        <div id="messageBox">
+                            <p id="messageText"></p>
+                        </div>
+
+                        <div id="confirmArea" class="hidden">
+                            <p id="confirmText"></p>
+                            <button id="yesBtn">Yes</button>
+                            <button id="noBtn">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="section section-light">
+                    <div class="section-content">
+                        <div id="BoxResult"></div>
+                    </div>
+                </div>
+
+                <div class="section section-light">
+                    <div class="section-content">
+                        <div id="BoxAdvice"></div>
+                    </div>
+                </div>
+                
+                <div class="section section-dark">
+                    <div class="section-content">
+                        <div id="graph-container">
+                            <canvas id="graph" width="1000" height="600"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+             <div class="section section-transparent">
+                <h2>The 4 Pillars of Sleep</h2>
+                <div class="section-content">
+                    <h3>1. Duration</h3>
+                    <p>
+                        Most adults need between 7-9 hours of sleep each night to be at their healthiest. 
+                        Sleep debt is what happens when these sleep needs aren't being met. For example, 
+                        <br><br>
+                        if you need eight hours of sleep per night to feel well rested, and you've only gotten six hours of sleep for the past two nights; 
+                        you'd be two hours short each night, and thus have accumulated four hours of sleep debt over those two days.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section section-transparent">
+                <div class="section-content">
+                    <h3>2. Continuity</h3>
+                    <p>
+                    Continuity is the ability to stay asleep without frequent wake-ups, which prevents the "fragmentation" that leaves you feeling groggy despite a long duration.
+                    <br><br>
+                    To improve this, optimize your environment by keeping your room cool, dark, and quiet, and avoid drinking large amounts of liquid right before bed to minimize middle-of-the-night disruptions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section section-transparent">
+                <div class="section-content">
+                    <h3>3. Regularity</h3>
+                    <p>
+                    Regularity anchors your internal biological clock (circadian rhythm), making it easier to fall asleep and wake up naturally without an alarm.
+                    <br><br>
+                    The best way to use this is to stick to the same wake-up time every single day even on weekends which helps regulate the hormones that tell your body when to be alert and when to rest.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="section section-transparent">
+                <div class="section-content">
+                    <h3>4. Depth</h3>
+                    <p>
+                    The value of depth lies in reaching the "slow-wave" and REM stages, which are critical for physical repair, immune function, and emotional processing.
+                    <br><br> 
+                    To improve this, focus on limiting alcohol and caffeine in the evening, as these substances chemically block your brain from entering the most restorative phases of sleep.
+                    </p>
+                </div>
+            </div>
+ 
+
+        </main>
+         
+
+        <footer>
+            <marquee scrollamount="25">
+                <p class="homePageText" id="authorCredits"> 
+                Made with Amelie's laptop by Amelie, Isaac, and Leo
+                </p>
+            </marquee>
+        </footer>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../js/script.js" defer></script>
+
+    </body>
+</html>
