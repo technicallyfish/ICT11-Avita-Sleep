@@ -1,48 +1,23 @@
+/*
 
-/* 
+  Title: Avita Sleep Calculator
+  Program Summary: This program asks the user for their age and their last
+  7 nights of sleep. It compares the user's average sleep to an age-based
+  recommendation, displays a chart, gives advice, and lets the user run again.
 
-	Title: Sleep
-	Program Summary: We answer the question "Will you die from your horrible sleep schedule?"
-	
-	Important (KEY) Program Elements Used: 
+  Important Program Elements Used:
+  prompt(), alert(), confirm(), defaultValue, functions, callbacks,
+  higher-order functions, parameters, .slice(), .trim(), .toLowerCase(),
+  while loop, do while loop, for loop, for of loop, Canvas API / Chart.js,
+  increment (++), arrays, comparison operators, DOM, event listeners,
+  innerHTML, function scope, if / else if / else, ternary, objects,
+  object literals, and regex.
 
-  prompt(), alert(), and confirm()
-  defaultValue (for prompts)
-  functions
-  function callback
-  higher-order functions
-  parameters
-  .slice()
-  .trim()
-  .toLowerCase()
-  while loop
-  do while loop
-  for loop
-  for of loop
-  ctx/graph (Canvas API)
-  increment (++)
-  decrement (--)
-  arrays
-  comparison Operators (!, ===, ||, &&)
-  DOM & event listeners
-  inner HTML
-  function scope
-  if/if else/if else if else...
-  ternary
-  objects
-  object literals
-  regex 
-
-
-	Authors (Teammates/Owners/Project Roles): Amelie (Ruohan) Shen, Leo Hougaard, Isaac Leon Calderon
-	
-	Version (Project Iteration): 2.0 (Submission)
-	
-	Date (Last Edited): 03/29/2026
+  Authors: Amelie (Ruohan) Shen, Leo Hougaard, Isaac Leon Calderon
+  Version: 2.1 (Rubric Fixes)
+  Date Last Edited: 05/16/2026
 
 */
-
-
 
 
 
@@ -50,361 +25,449 @@
 
 
 
-
-
 /*
-Summary: program master function
-@parms: None
+Summary: Runs the full sleep calculator program and lets the user repeat it.
+@params: None
 @return: None
 */
 function sleepGame() {
+  // function variable declarations
+  let userWantsToRunAgain = false;
+  let userNameFinal = getUsername();
+  // end of function variable declarations
+
   titleAvita();
-  welcomeAvita(getUsername());
+  welcomeAvita(userNameFinal);
   introAvita();
   explanationAvita();
-  askForSleep();
+
+  do {
+    console.log("%c==================== NEW SLEEP CHECK ====================", "color: turquoise; font-weight: bold");
+    userWantsToRunAgain = askForSleep(userNameFinal);
+
+    if (userWantsToRunAgain) {
+      console.log("%c-------------------- RESTARTING PROGRAM --------------------", "color: turquoise");
+    } // end of repeat message if
+  } while (userWantsToRunAgain);
+
   endRound();
-} //End of master function
-
-
+} // end of sleepGame function
 
 
 
 /*
-Summary: The title function
-@parms: var name or expression and datatype
-@return: None - Outputs the ASCII title to the console.
+Summary: Outputs the program title to the console.
+@params: None
+@return: None
 */
 function titleAvita() {
-  // function var
-  const ASCIITitle = String.raw`                                                                             
-  ▄████▄ ▄▄ ▄▄ ▄▄ ▄▄▄▄▄▄ ▄▄▄    ██     ██ ▄▄▄▄▄ ▄▄    ▄▄    ▄▄  ▄▄ ▄▄▄▄▄  ▄▄▄▄  ▄▄▄▄ 
-  ██▄▄██ ██▄██ ██   ██  ██▀██   ██ ▄█▄ ██ ██▄▄  ██    ██    ███▄██ ██▄▄  ███▄▄ ███▄▄ 
-  ██  ██  ▀█▀  ██   ██  ██▀██    ▀██▀██▀  ██▄▄▄ ██▄▄▄ ██▄▄▄ ██ ▀██ ██▄▄▄ ▄▄██▀ ▄▄██▀                                                                                    
-                              
-    ()___  
-  ()//__/)_________________()
-  ||(___)//#/_/#/_/#/_/#()/||
-  ||----|#| |#|_|#|_|#|_|| ||
-  ||____|_|#|_|#|_|#|_|#||/||
-  ||    |#|_|#|_|#|_|#|_||                                                      
-                                                                                                                                                  
-  ▄█████ ▄▄    ▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄    ▄█████  ▄▄▄  ▄▄     ▄▄▄▄ ▄▄ ▄▄ ▄▄     ▄▄▄ ▄▄▄▄▄▄ ▄▄▄  ▄▄▄▄  
-  ▀▀▀▄▄▄ ██    ██▄▄  ██▄▄  ██▄█▀   ██     ██▀██ ██    ██▀▀▀ ██ ██ ██    ██▀██  ██  ██▀██ ██▄█▄ 
-  █████▀ ██▄▄▄ ██▄▄▄ ██▄▄▄ ██      ▀█████ ██▀██ ██▄▄▄ ▀████ ▀███▀ ██▄▄▄ ██▀██  ██  ▀███▀ ██ ██ 
-  `;                                                                                                 
-  let asciiTitleColors = [36]; // cyan
+  // function variable declarations
+  const asciiTitle = String.raw`
+      ___       _ _        ____  _                 
+     / _ \__   _(_) |_ __ _/ ___|| | ___  ___ _ __  
+    | | | \ \ / / | __/ _' \___ \| |/ _ \/ _ \ '_ \ 
+    | |_| |\ V /| | || (_| |___) | |  __/  __/ |_) |
+     \___/  \_/ |_|\__\__,_|____/|_|\___|\___| .__/ 
+                                             |_|    
+
+              Avita Sleep Calculator
+  `;
+  const asciiTitleColors = [36];
   let titleColorIndex = 0;
-  let asciiTitleChar;
   let titleOutput = "";
-  const titleColor = asciiTitleColors[titleColorIndex % asciiTitleColors.length];
-  // end of function var
+  let titleColor = asciiTitleColors[titleColorIndex % asciiTitleColors.length];
+  // end of function variable declarations
 
-
-
-  // ASCII Title colouring (DO NOT TOUCH)
-  for (asciiTitleChar of ASCIITitle) {
-    if (asciiTitleChar === "\n") {
-      titleOutput += asciiTitleChar; // preserve line breaks
-    } else if (asciiTitleChar === " ") {
-      titleOutput += asciiTitleChar; // preserve spaces
+  for (let asciiTitleCharacter of asciiTitle) {
+    if ((asciiTitleCharacter === "\n") || (asciiTitleCharacter === " ")) {
+      titleOutput += asciiTitleCharacter;
     } else {
-      titleOutput += `\x1b[${titleColor}m${asciiTitleChar}\x1b[0m`;
+      titleOutput += `\x1b[${titleColor}m${asciiTitleCharacter}\x1b[0m`;
       titleColorIndex++;
-    }
-  } // End of ASCII Title colouring
+    } // end of character colour if
+  } // end of ascii title loop
 
   console.log(titleOutput);
-} // End of the title function
-
-
+} // end of titleAvita function
 
 
 
 /*
-Summary: The welcome rock paper scissors function
-@parms: var name or expression and datatype
-@return: None - Triggers alerts and logs to greet the user.
+Summary: Welcomes the user in an alert, console, and HTML.
+@params: userNameFinal (String)
+@return: None
 */
 function welcomeAvita(userNameFinal) {
-  alert(`Hi ${userNameFinal}! Welcome to Avita.`);
-  console.log(`Hi ${userNameFinal}!`);
-} //End of welcome rock paper scissors function
+  // function variable declarations
+  let welcomeElement = document.getElementById("username");
+  // end of function variable declarations
 
-
+  alert(`Welcome "${userNameFinal}", to Avita Sleep Calculator!`);
+  console.log(`Welcome "${userNameFinal}", to Avita Sleep Calculator!`);
+  welcomeElement.innerHTML = userNameFinal;
+} // end of welcomeAvita function
 
 
 
 /*
-Summary: Intro rock paper scissors function
-@parms: var name or expression and datatyp
-@return: None - Logs stylized introduction text to the console.
+Summary: Logs a clearer introduction to the console.
+@params: None
+@return: None
 */
 function introAvita() {
-  console.log('%cWelcome to Avita sleep debt calculator.', 'color: turquoise; font-size: 30px');
-  console.log('This is where you will be enlightened about your sleep!');
-  console.log('%cIntroduction', 'color: turquoise; font-size: 20px');
-  console.log(`Sleep, something that most of us take for granted, is a fundamental cornerstone for our health. Therefore, improving your sleep has ubiquitous positive impacts on your tomorrow but, more importantly, to the rest of your life as well. This coumpounding effect means that minor inconsistencies to your sleep can cause vast deterioriation of your health. This is why you should check your sleep debt with our sleep debt calculator, so that you find out if your sleep schedule is perfect or you can find out how to make vast improvements wihout doing vast amounts of additional work if it's not.`);
-} //End of intro rock paper scissors function
-
-
+  console.log("%cWelcome to the Avita Sleep Debt Calculator", "color: turquoise; font-size: 30px");
+  console.log("This program will ask you for your age and 7 sleep values, then it will calculate your average sleep, weekly sleep difference, chart, and recommendation.");
+  console.log("%cIntroduction", "color: turquoise; font-size: 20px");
+  console.log("Sleep is one of the foundations of health. Small sleep problems can build up into sleep debt, so this calculator helps you check your week and see what habit could improve next.");
+} // end of introAvita function
 
 
 
 /*
-Summary: Explanation rock paper scissors function
-@parms: var name or expression and datatyp
-@return: None - Displays game instructions via alerts and logs.
+Summary: Explains the prompt instructions and expected outputs.
+@params: None
+@return: None
 */
 function explanationAvita() {
-  console.log('%cExplanation', 'color: turquoise; font-size: 20px');
-  alert(`The sleep calculator.\n\nHow to calculate your sleep debt:\n1. Enter your age. \n2. Enter the you hours of sleep for each of the past 7 days separated by commas.\n3. Recieve sleep debt calculations, a chart summary, and advice.`);
-  alert('Let\'s start!');
-  console.log(`The sleep calculator.\n\nHow to calculate your sleep debt:\n1. Enter your age. \n2. Enter the you hours of sleep for each of the past 7 days separated by commas.\n3. Recieve sleep debt calculations, a chart summary, and advice.`);
-} // End of explanation rock paper scissors function
+  // function variable declarations
+  let instructions = "Follow the popups to use the calculator.\n\n" +
+    "1. Enter your age.\n" +
+    "2. Enter 7 sleep values separated by commas, like 7,8,6,5,9,7,8.\n" +
+    "3. Confirm your data.\n\n" +
+    "You will get your average sleep, recommended sleep, daily difference, weekly difference, a console graph, a webpage chart, and a recommendation.";
+  // end of function variable declarations
 
-
+  console.log("%cExplanation", "color: turquoise; font-size: 20px");
+  console.log(instructions);
+  alert(instructions);
+  alert("Let's start!");
+} // end of explanationAvita function
 
 
 
 /*
-Summary: Prompts the user for their age and sleep hours for the past 7 days, validates that inputs are not empty or cancelled, then passes the values to sleepHandler
-@parms: None
-@return: None — Returns early if user chooses to exit
+Summary: Asks for age and sleep data, then sends the information to validation.
+@params: userNameFinal (String)
+@return: Boolean - true if the user wants to run the calculator again.
 */
-function askForSleep() {
-  // function var
-  let userAge;
-  let sleepHours;
-
-  let last7Days = getLast7Days();
-  let detailedPrompt = last7Days.map((day, i) => `Day ${i+1} (${day})`).join("\n");
-  // end of function var
-
-
+function askForSleep(userNameFinal) {
+  // function variable declarations
+  let userAge = "";
+  let sleepHours = "";
+  let lastSevenDays = getLastSevenDays();
+  let detailedPrompt = lastSevenDays.map((dayName, dayIndex) => `Day ${dayIndex + 1} (${dayName})`).join("\n");
+  // end of function variable declarations
 
   do {
     userAge = prompt("Enter your age:", "16");
-    
+
     if (userAge === null) {
       if (confirm("Do you want to exit the program?")) {
-        console.log("User has exited the program at the entering user age step.")
-        return;
-      } else {
-        // auto re-prompts
-      }
-    }
-  } while((userAge === null) || (userAge.trim() === ""));
+        console.log("User exited the program while entering age.");
+        return false;
+      } // end of exit confirmation if
+    } // end of null age if
+  } while ((userAge === null) || (userAge.trim() === ""));
 
   do {
-    sleepHours = prompt(`Enter sleep for each of the past 7 days:\n\n${detailedPrompt}\n\nex. 7,8,6,5,9,7,8`, "1,2,3,4,5,6,7");
+    sleepHours = prompt(`Enter sleep for each of the past 7 days:\n\n${detailedPrompt}\n\nExample: 7,8,6,5,9,7,8`, "7,8,6,5,9,7,8");
 
     if (sleepHours === null) {
       if (confirm("Do you want to exit the program?")) {
-        console.log("User has exited the program at the entering sleep hours step.")
-        return;
-      } else {
-        // auto re-prompts
-      }
-    }
-  } while((sleepHours === null) || (sleepHours.trim() === ""));
+        console.log("User exited the program while entering sleep hours.");
+        return false;
+      } // end of exit confirmation if
+    } // end of null sleep if
+  } while ((sleepHours === null) || (sleepHours.trim() === ""));
 
-  sleepHandler(userAge, sleepHours);
-
-} //End of sleep input
-
+  return sleepHandler(userAge, sleepHours, userNameFinal);
+} // end of askForSleep function
 
 
 
 /*
-Summary: Validates age and sleep inputs, assigns recommended sleep based on age, and triggers sleep debt calculation
-@parms: ageInput (String — age entered by user), sleepInput (String — comma-separated sleep hours)
-@return: returns undefined early on failure; otherwise, initiates the next function
+Summary: Validates inputs, finds recommended sleep, and starts calculations.
+@params: ageInput (String), sleepInput (String), userNameFinal (String)
+@return: Boolean - true if the user wants to run the calculator again.
 */
-function sleepHandler(ageInput, sleepInput) {
-  // function var
-  // age: recommended sleep hours
-  const ageSleepMapping = {
-      0: 15,
-      1: 14,
-      2: 12,
-      3: 11,
-      4: 11,
-      5: 10.5,
-      6: 10,
-      7: 10,
-      8: 9.5,
-      9: 9.5,
-      10: 9.5,
-      11: 9.5,
-      12: 9,
-      13: 9,
-      14: 9,
-      15: 8.5,
-      16: 8.5
-  };
+function sleepHandler(ageInput, sleepInput, userNameFinal) {
+  // function variable declarations
   let ageNumber = Number(ageInput);
   let sleepData = [];
-  let recommendedSleep;
-  let confirmMessage;
-  // end of function var
+  let recommendedSleep = 0;
+  let confirmMessage = "";
+  // end of function variable declarations
 
-
-
-  if (isNaN(ageNumber)) {
-    alert("The age you tried to enter is not a number.");
-    alert("Please enter a number between 0 and 120 for your age.");
-    askForSleep();
-    return;
+  if (isNaN(ageNumber) || (ageInput.trim() === "")) {
+    alert("The age you entered is not a number. Please try again.");
+    return true;
   } else if ((ageNumber < 0) || (ageNumber > 120)) {
-    alert("The age you tried to enter is not a realistic age.");
-    alert("Please enter a valid age between 0 and 120.");
-    askForSleep();
-    return;
-  } //End of age check
-    
-  // Set recommended sleep based on ageNumber
-  if (ageSleepMapping[ageNumber] !== undefined) {
-    recommendedSleep = ageSleepMapping[ageNumber];
-  } else {
-    recommendedSleep = 8; // Default to 8 hours if age is not listed (aka >=17)
-  } //End of sleep time selection
+    alert("Please enter a realistic age between 0 and 120.");
+    return true;
+  } // end of age validation if
 
-  sleepData = sleepInput.split(","); // convert sleep string into array
+  recommendedSleep = getRecommendedSleep(ageNumber);
+  sleepData = sleepInput.split(",");
 
-  // check there are exactly 7 days
   if (sleepData.length !== 7) {
     alert("Please enter exactly 7 numbers separated by commas.");
-    askForSleep();
-    return;
-  } //End of day amount check
+    return true;
+  } // end of day amount validation if
 
-  // Convert each day to number and validate
-  for (let i = 0; i < sleepData.length; i++) {
-    sleepData[i] = Number(sleepData[i].trim());
-    if (isNaN(sleepData[i])) {
-      alert("Those sleep values are not all numbers.");
-      alert("Each day must be a number.");
-      askForSleep();
-      return;
-    } else if (sleepData[i] <= 0) {
-      alert("You can't ever sleep that little in a day.");
-      alert("Each day must be a number from 0-24.");
-      askForSleep();
-      return;
-    } else if (sleepData[i] >= 24) {
-      alert("You can't ever sleep that much in a day.");
-      alert("Each day must be a number from 0-24.");
-      askForSleep();
-      return;
-    }
-  } //End of sleep length check
+  for (let sleepIndex = 0; sleepIndex < sleepData.length; sleepIndex++) {
+    sleepData[sleepIndex] = Number(sleepData[sleepIndex].trim());
 
-  confirmMessage =`Confirm your data:\nAge: ${ageNumber}\nSleep (7 days): ${sleepData.join(", ")}`;
-  console.log(`You entered:\nAge: ${ageNumber}\nSleep (7 days): ${sleepData.join(", ")}`);
+    if (isNaN(sleepData[sleepIndex])) {
+      alert("Those sleep values are not all numbers. Each day must be a number.");
+      return true;
+    } else if ((sleepData[sleepIndex] < 0) || (sleepData[sleepIndex] > 24)) {
+      alert("Each sleep value must be from 0 to 24 hours.");
+      return true;
+    } // end of sleep value validation if
+  } // end of sleep validation loop
+
+  confirmMessage = `Confirm your data:\nAge: ${ageNumber}\nBased on your age, the program recommends ${recommendedSleep} hours per night.\nSleep values: ${sleepData.join(", ")}`;
+  console.log(`Age entered: ${ageNumber}`);
+  console.log(`Based on the user's age, the program recommends ${recommendedSleep} hours per night.`);
+  console.log(`Sleep values entered: ${sleepData.join(", ")}`);
+
   if (confirm(confirmMessage)) {
-    calculateSleepDebt(sleepData, recommendedSleep);
-  } else if (confirm("Do you want to re enter values?")) {
-    console.log("User has cancelled the first prompt but decided to try again.");
-    askForSleep();
+    calculateSleepDebt(sleepData, recommendedSleep, ageNumber, userNameFinal);
+  } else if (confirm("Do you want to re-enter values?")) {
+    console.log("User chose to re-enter the values.");
+    return true;
   } else {
-    console.log("User has canceled the prompt.");
-    return;
-  }
-} //End of sleepHandler funtion
+    console.log("User cancelled the confirmed data and ended the program.");
+    return false;
+  } // end of confirmation if
 
-
+  return confirm("Do you want to run the sleep calculator again without reloading?");
+} // end of sleepHandler function
 
 
 
 /*
-Summary: Calculates the average sleep, daily, weekely, and the sleep difference compred to de recommended. Displays the results DOM renders the chart and trigers sleep advice.
-@parms: SleepData
-@return: none
+Summary: Returns the recommended sleep amount using age ranges.
+@params: ageNumber (Number)
+@return: Number - recommended hours of sleep per night.
 */
-function calculateSleepDebt(sleepData, recommendedSleep) {
-  // function var
-  let resultMessage;
-  let alertMessage;
-  let sleepDifference;
+function getRecommendedSleep(ageNumber) {
+  // function variable declarations
+  const sleepAgeRanges = [
+    { minimumAge: 0, maximumAge: 0, recommendedHours: 15, reason: "newborns need the most sleep for rapid brain and body growth" },
+    { minimumAge: 1, maximumAge: 2, recommendedHours: 12, reason: "toddlers are still growing quickly and need extra recovery time" },
+    { minimumAge: 3, maximumAge: 5, recommendedHours: 11, reason: "preschool children need sleep to support learning, mood, and growth" },
+    { minimumAge: 6, maximumAge: 12, recommendedHours: 10, reason: "school age children need sleep for memory, attention, and physical growth" },
+    { minimumAge: 13, maximumAge: 18, recommendedHours: 9, reason: "teenagers need more sleep because their brains and bodies are still developing" },
+    { minimumAge: 19, maximumAge: 64, recommendedHours: 8, reason: "most adults need about 7 to 9 hours, so 8 hours is a healthy target" },
+    { minimumAge: 65, maximumAge: 120, recommendedHours: 7.5, reason: "older adults usually need about 7 to 8 hours to stay rested" }
+  ];
+  let recommendedSleep = 8;
+  // end of function variable declarations
+
+  for (let ageRange of sleepAgeRanges) {
+    if ((ageNumber >= ageRange.minimumAge) && (ageNumber <= ageRange.maximumAge)) {
+      recommendedSleep = ageRange.recommendedHours;
+    } // end of age range if
+  } // end of age range loop
+
+  return recommendedSleep;
+} // end of getRecommendedSleep function
+
+
+
+/*
+Summary: Returns the research-style reason for an age recommendation.
+@params: ageNumber (Number)
+@return: String - explanation of why this age group needs that sleep.
+*/
+function getSleepReason(ageNumber) {
+  // function variable declarations
+  let sleepReason = "";
+  // end of function variable declarations
+
+  if (ageNumber < 1) {
+    sleepReason = "Newborns need very high sleep because sleep supports fast brain and body development.";
+  } else if (ageNumber <= 2) {
+    sleepReason = "Toddlers need extra sleep because they are learning quickly and growing quickly.";
+  } else if (ageNumber <= 5) {
+    sleepReason = "Preschool children need sleep for growth, mood control, and learning.";
+  } else if (ageNumber <= 12) {
+    sleepReason = "School age children need sleep for attention, memory, and healthy growth.";
+  } else if (ageNumber <= 18) {
+    sleepReason = "Teenagers need about 8 to 10 hours because their brains and bodies are still developing.";
+  } else if (ageNumber <= 64) {
+    sleepReason = "Adults usually need 7 to 9 hours because sleep supports energy, focus, and long-term health.";
+  } else {
+    sleepReason = "Older adults usually need 7 to 8 hours because sleep still supports memory, mood, and body repair.";
+  } // end of age reason if
+
+  return sleepReason;
+} // end of getSleepReason function
+
+
+
+/*
+Summary: Calculates average sleep and displays all results.
+@params: sleepData (Array), recommendedSleep (Number), ageNumber (Number), userNameFinal (String)
+@return: None
+*/
+function calculateSleepDebt(sleepData, recommendedSleep, ageNumber, userNameFinal) {
+  // function variable declarations
   let averageSleep = calculateAverage(sleepData);
-  let finalResultHTML;
-  // end of function var
-  
+  let sleepDifference = averageSleep - recommendedSleep;
+  let weeklyDifference = sleepDifference * 7;
+  let sleepStatus = getSleepStatus(sleepDifference);
+  let sleepReason = getSleepReason(ageNumber);
+  let resultMessage = "";
+  let alertMessage = "";
+  // end of function variable declarations
 
+  resultMessage =
+    `<b>Results for ${userNameFinal}</b><br>` +
+    `You slept for an average of <b>${averageSleep.toFixed(2)} hours</b> per night.<br>` +
+    `Your recommended sleep is <b>${recommendedSleep} hours</b> per night.<br>` +
+    `Based on this information, you are <b>${formatDifference(sleepDifference)}</b> per night.<br>` +
+    `Over a week, that is <b>${formatDifference(weeklyDifference)}</b> total.<br><br>` +
+    `<b>Why this recommendation?</b><br>${sleepReason}`;
 
-  calculateAverage(sleepData);
+  alertMessage =
+    `Results for ${userNameFinal}\n\n` +
+    `You slept for an average of ${averageSleep.toFixed(2)} hours per night.\n` +
+    `Your recommended sleep is ${recommendedSleep} hours per night.\n` +
+    `Based on this information, you are ${formatDifference(sleepDifference)} per night.\n` +
+    `Over a week, that is ${formatDifference(weeklyDifference)} total.\n\n` +
+    `Status: ${sleepStatus}\n\n` +
+    `Why this recommendation?\n${sleepReason}`;
 
-  sleepDifference = averageSleep - recommendedSleep;
-
-  resultMessage =`Results\n\nRecommended Sleep: ${recommendedSleep} hours <br>Your Average Sleep: ${averageSleep.toFixed(2)} hours <br>Daily Difference: ${sleepDifference.toFixed(2)} hours <br>Weekly Difference: ${(sleepDifference * 7).toFixed(2)} hours <br>`;
-
-  alertMessage =`Results:\n\nRecommended Sleep: ${recommendedSleep} hours\nYour Average Sleep: ${averageSleep.toFixed(2)} hours\nDaily Difference: ${sleepDifference.toFixed(2)} hours\nWeekly Difference: ${(sleepDifference * 7).toFixed(2)} hours`;
-
-  finalResultHTML = resultMessage;
   document.getElementById("BoxResult").innerHTML = resultMessage;
-
+  consoleResults(averageSleep, recommendedSleep, sleepDifference, weeklyDifference, sleepStatus, sleepReason);
   consoleSleepGraph(sleepData, recommendedSleep);
   renderSleepChart(sleepData, recommendedSleep);
   alert(alertMessage);
-
   sleepAdvice(sleepDifference);
-  displayFinalResults(finalResultHTML);
-} //End of calculateSleepDebt function
-
-
+} // end of calculateSleepDebt function
 
 
 
 /*
-Summary: Determines and displays a sleep recommendation message based on how far the user's average sleep is from the recommended amount
-@parms: sleepDiff (Number — difference between average and recommended sleep)
-@return: none
+Summary: Creates a readable statement for sleep differences.
+@params: sleepDifference (Number)
+@return: String
 */
-function sleepAdvice(sleepDiff) {
-  // function var
-  let adviceGiven;
-  let adviceBox = document.getElementById("BoxAdvice");
-  let htmlAdvice;
-  // end of function var
-  
-  
+function formatDifference(sleepDifference) {
+  // function variable declarations
+  let absoluteDifference = Math.abs(sleepDifference).toFixed(2);
+  let differenceMessage = "";
+  // end of function variable declarations
 
-    if (sleepDiff < -2) {
+  if (sleepDifference < 0) {
+    differenceMessage = `${absoluteDifference} hours below recommendation`;
+  } else if (sleepDifference > 0) {
+    differenceMessage = `${absoluteDifference} hours above recommendation`;
+  } else {
+    differenceMessage = "exactly on the recommendation";
+  } // end of difference if
+
+  return differenceMessage;
+} // end of formatDifference function
+
+
+
+/*
+Summary: Returns a short status based on the sleep difference.
+@params: sleepDifference (Number)
+@return: String
+*/
+function getSleepStatus(sleepDifference) {
+  // function variable declarations
+  let sleepStatus = "";
+  // end of function variable declarations
+
+  if (isNaN(sleepDifference)) {
+    sleepStatus = "unable to classify because the sleep difference was invalid";
+  } else if (sleepDifference <= -2) {
+    sleepStatus = "severely sleep deprived";
+  } else if ((sleepDifference > -2) && (sleepDifference < 0)) {
+    sleepStatus = "slightly sleep deprived";
+  } else if ((sleepDifference >= 0) && (sleepDifference <= 1)) {
+    sleepStatus = "in a healthy range";
+  } else if ((sleepDifference > 1) && (sleepDifference <= 2)) {
+    sleepStatus = "slightly above the recommendation";
+  } else if (sleepDifference > 2) {
+    sleepStatus = "far above the recommendation";
+  } else {
+    sleepStatus = "unable to classify because the sleep difference was invalid";
+  } // end of status if
+
+  return sleepStatus;
+} // end of getSleepStatus function
+
+
+
+/*
+Summary: Logs the final result statements clearly.
+@params: averageSleep, recommendedSleep, sleepDifference, weeklyDifference, sleepStatus, sleepReason
+@return: None
+*/
+function consoleResults(averageSleep, recommendedSleep, sleepDifference, weeklyDifference, sleepStatus, sleepReason) {
+  console.log("%c-------------------- FINAL RESULTS --------------------", "color: turquoise; font-weight: bold");
+  console.log(`You slept for an average of ${averageSleep.toFixed(2)} hours per night.`);
+  console.log(`Your recommended sleep is ${recommendedSleep} hours per night.`);
+  console.log(`Based on this information, you are ${formatDifference(sleepDifference)} per night.`);
+  console.log(`Over a week, that is ${formatDifference(weeklyDifference)} total.`);
+  console.log(`Status: ${sleepStatus}`);
+  console.log(`Recommendation explanation: ${sleepReason}`);
+} // end of consoleResults function
+
+
+
+/*
+Summary: Determines and displays advice based on sleep difference.
+@params: sleepDifference (Number)
+@return: None
+*/
+function sleepAdvice(sleepDifference) {
+  // function variable declarations
+  let adviceGiven = "";
+  let adviceBox = document.getElementById("BoxAdvice");
+  let htmlAdvice = "";
+  // end of function variable declarations
+
+  if (isNaN(sleepDifference)) {
+    adviceGiven = "The program could not make a recommendation because the sleep difference was invalid.";
+  } else if (sleepDifference <= -2) {
     adviceGiven = "You are severely sleep deprived.\n\n" +
-    "• Try going to bed 1-2 hours earlier consistently\n" +
-    "• Avoid screens (phone, computer) 30-60 minutes before bed\n" +
-    "• Keep a consistent sleep schedule (even on weekends)\n" +
-    "• Limit caffeine after midday\n" +
-    "• If this continues, consider talking to a doctor";
-  }
-  else if (sleepDiff < 0) {
+      "- Try going to bed 1-2 hours earlier consistently.\n" +
+      "- Avoid screens 30-60 minutes before bed.\n" +
+      "- Keep a consistent sleep schedule, even on weekends.\n" +
+      "- Limit caffeine after midday.\n" +
+      "- If this continues, consider talking to a doctor.";
+  } else if ((sleepDifference > -2) && (sleepDifference < 0)) {
     adviceGiven = "You are slightly sleep deprived.\n\n" +
-    "• Try going to bed 30-60 minutes earlier\n" +
-    "• Set a consistent bedtime and wake-up time\n" +
-    "• Avoid late-night scrolling or gaming\n" +
-    "• Make sure your room is dark and quiet";
-  }
-  else if (sleepDiff <= 1) {
+      "- Try going to bed 30-60 minutes earlier.\n" +
+      "- Set a consistent bedtime and wake-up time.\n" +
+      "- Avoid late-night scrolling or gaming.\n" +
+      "- Make sure your room is dark and quiet.";
+  } else if ((sleepDifference >= 0) && (sleepDifference <= 1)) {
     adviceGiven = "Your sleep amount is in the healthy range. Good job!\n\n" +
-    "• Keep your current routine consistent\n" +
-    "• Maintain good sleep habits (dark room, no screens before bed)\n" +
-    "• Try to wake up and sleep at the same time daily";
-  }
-  else if (sleepDiff <= 2) {
+      "- Keep your current routine consistent.\n" +
+      "- Maintain good sleep habits.\n" +
+      "- Try to wake up and sleep at the same time daily.";
+  } else if ((sleepDifference > 1) && (sleepDifference <= 2)) {
     adviceGiven = "You may be sleeping slightly too much.\n\n" +
-    "• Try setting a consistent wake-up time\n" +
-    "• Avoid long naps during the day\n" +
-    "• Make sure you're staying active during the day\n" +
-    "• Oversleeping occasionally is fine, but watch for patterns";
-  }
-  else {
+      "- Try setting a consistent wake-up time.\n" +
+      "- Avoid long naps during the day.\n" +
+      "- Make sure you are staying active during the day.";
+  } else if (sleepDifference > 2) {
     adviceGiven = "You may be oversleeping consistently.\n\n" +
-    "• Try reducing sleep gradually (15-30 minutes earlier wake-up)\n" +
-    "• Stay physically active during the day\n" +
-    "• Avoid staying in bed when you're already awake\n" +
-    "• If you still feel tired, it could be worth checking with a doctor";
-  }
+      "- Try reducing sleep gradually.\n" +
+      "- Stay physically active during the day.\n" +
+      "- Avoid staying in bed when you are already awake.\n" +
+      "- If you still feel tired, it could be worth checking with a doctor.";
+  } else {
+    adviceGiven = "The program could not make a recommendation because the sleep difference was invalid.";
+  } // end of advice if
 
   htmlAdvice = adviceGiven.replace(/\n/g, "<br>");
   adviceBox.innerHTML = `<b>Recommendation:</b><br>${htmlAdvice}`;
@@ -412,197 +475,153 @@ function sleepAdvice(sleepDiff) {
   alert("Recommendation:\n" + adviceGiven);
   console.log("%cRecommendation", "color: turquoise; font-size:20px");
   console.log(adviceGiven);
-
-} // End of sleepAdvice function
-
-
-
-
-
-/*
-Summary: Displays the final stored HTML result in the BoxResult element and logs a goodbye message to the console
-@parms: none
-@return: none
-*/
-function displayFinalResults(finalResultHTML) {
-  // function var
-  let resultBox;
-  // end of function var
-
-
-
-  resultBox = document.getElementById("BoxResult");
-  resultBox.innerHTML = finalResultHTML;
-
-  console.log('%cCome back the next time you need to calculate your sleep debt!', 'color: #3399FF');
-} //End of displayFinalResults funtion
-
-
+} // end of sleepAdvice function
 
 
 
 /*
-Summary: Ends the program by showing a thank-you alert and displaying the final results
-@parms: none
-@return: none
-*/
-function endRound() {
-  alert("Thanks for using the Sleep Calculator!");
-} //End of endRound funtion
-
-
-
-
-
-/*
-Summary: Prints a styled bar graph to the console showing daily sleep, average sleep, and recommended sleep using block characters
-@parms: daysArray (Array of Numbers — sleep hours per day), recommended (Number — recommended hours)
+Summary: Ends the program with a business-style thank you message.
+@params: None
 @return: None
 */
-function consoleSleepGraph(daysArray, recommended) {
-  // function var
-  const dayNames = getLast7Days();;
-  const sleepScale = 2; // characters per hour
+function endRound() {
+  // function variable declarations
+  let thankYouMessage = "Thanks for using the Avita Sleep Calculator!\n\n" +
+    "Visit Avita Health & Wellness again for support with healthy routines, wellness services, and better sleep habits.";
+  // end of function variable declarations
 
+  alert(thankYouMessage);
+  console.log("%c==================== PROGRAM ENDED ====================", "color: turquoise; font-weight: bold");
+  console.log(thankYouMessage);
+} // end of endRound function
+
+
+
+/*
+Summary: Prints a console graph with a legend.
+@params: daysArray (Array), recommendedSleep (Number)
+@return: None
+*/
+function consoleSleepGraph(daysArray, recommendedSleep) {
+  // function variable declarations
+  const dayNames = getLastSevenDays();
+  const sleepScale = 2;
   const sleepAverage = calculateAverage(daysArray);
+  let averageBar = "";
+  let recommendedBar = "";
+  let sleepBar = "";
+  // end of function variable declarations
 
-  let avgBar = "";
-  let recBar = "";
-  // end of function var
+  console.log("%c-------------------- CONSOLE SLEEP GRAPH --------------------", "color: turquoise; font-weight: bold");
+  console.log("Legend: green/red bars = daily sleep, orange bar = average sleep, blue bar = recommended sleep.");
 
+  for (let dayIndex = 0; dayIndex < daysArray.length; dayIndex++) {
+    sleepBar = "";
 
-
-  console.log("%cSleep Graph (Last 7 Days)", "color: turquoise; font-size:20px");
-
-  // Daily bars
-  for (let i = 0; i < daysArray.length; i++) {
-
-    let bar = "";
-
-    for (let j = 0; j < daysArray[i] * sleepScale; j++) {
-      bar += "█";
-    }
+    for (let barIndex = 0; barIndex < daysArray[dayIndex] * sleepScale; barIndex++) {
+      sleepBar += "#";
+    } // end of daily bar loop
 
     console.log(
-      `%c${dayNames[i]} %c${bar} (${daysArray[i]}h)`,
+      `%c${dayNames[dayIndex]} Daily Sleep %c${sleepBar} (${daysArray[dayIndex]}h)`,
       "color:white",
-      "color:limegreen"
+      daysArray[dayIndex] < recommendedSleep ? "color:tomato" : "color:limegreen"
     );
-  }
+  } // end of daily graph loop
 
-  // Average bar
-  for (let i = 0; i < sleepAverage * sleepScale; i++) {
-    avgBar += "█";
-  }
+  for (let averageIndex = 0; averageIndex < sleepAverage * sleepScale; averageIndex++) {
+    averageBar += "#";
+  } // end of average bar loop
 
   console.log(
-    `%cAVG %c${avgBar} (${sleepAverage.toFixed(2)}h)`,
+    `%cAverage Sleep %c${averageBar} (${sleepAverage.toFixed(2)}h)`,
     "color:white",
     "color:orange; font-weight:bold"
   );
 
-  // Recommended bar
-  for (let i = 0; i < recommended * sleepScale; i++) {
-    recBar += "█";
-  }
+  for (let recommendedIndex = 0; recommendedIndex < recommendedSleep * sleepScale; recommendedIndex++) {
+    recommendedBar += "#";
+  } // end of recommended bar loop
 
   console.log(
-    `%cREC %c${recBar} (${recommended}h)`,
+    `%cRecommended Sleep %c${recommendedBar} (${recommendedSleep}h)`,
     "color:white",
     "color:dodgerblue; font-weight:bold"
   );
-
-}
+} // end of consoleSleepGraph function
 
 
 
 /*
-Summary:Renders an interactive Chart.js bar and line chart on the canvas element with ID "graph", showing daily sleep bars, an average line, and a recommended sleep line
-@parms: daysArray (Array of Numbers — sleep hours per day), recommended (Number — recommended hours)
-@return: None — Assigns the chart instance to window.sleepChart
+Summary: Renders the webpage chart with labels and a legend.
+@params: daysArray (Array), recommendedSleep (Number)
+@return: None
 */
-function renderSleepChart(daysArray, recommended) {
-  // function var
-  const ctx = document.getElementById("graph").getContext("2d");
-  const dayNames = getLast7Days();
-  const average = calculateAverage(daysArray);
-  // end of function var
+function renderSleepChart(daysArray, recommendedSleep) {
+  // function variable declarations
+  const canvasElement = document.getElementById("graph");
+  const canvasContext = canvasElement.getContext("2d");
+  const dayNames = getLastSevenDays();
+  const averageSleep = calculateAverage(daysArray);
+  // end of function variable declarations
 
+  if (canvasElement.sleepChartInstance) {
+    canvasElement.sleepChartInstance.destroy();
+  } // end of old chart if
 
-
-  if(window.sleepChart) {
-    window.sleepChart.destroy();
-  }
-
-  window.sleepChart = new Chart(ctx, {
+  canvasElement.sleepChartInstance = new Chart(canvasContext, {
     data: {
       labels: dayNames,
       datasets: [
-
-        // Daily bars (green)
         {
           type: "bar",
-          label: "Daily Sleep",
+          label: "Daily Sleep (red = below recommendation, green = meets recommendation)",
           data: daysArray,
-          backgroundColor: daysArray.map(h =>
-            h < 7 ? "rgb(231, 45, 58)" : "rgb(46, 203, 46)"
-          ),
+          backgroundColor: daysArray.map((sleepHours) => sleepHours < recommendedSleep ? "rgb(231, 45, 58)" : "rgb(46, 203, 46)"),
           borderRadius: 8,
           order: 2
         },
-
-        // Average line (orange)
         {
           type: "line",
-          label: "Average",
-          data: new Array(7).fill(average),
+          label: "Average Sleep",
+          data: new Array(7).fill(averageSleep),
           borderColor: "orange",
           borderWidth: 4,
           tension: 0.4,
           fill: false,
-
           pointRadius: 4,
           pointBackgroundColor: "orange",
           pointBorderColor: "orange",
           pointBorderWidth: 0,
-
           order: 1
         },
-
-        // Recommended line (blue)
         {
           type: "line",
-          label: "Recommended",
-          data: new Array(7).fill(recommended),
+          label: "Recommended Sleep",
+          data: new Array(7).fill(recommendedSleep),
           borderColor: "dodgerblue",
           borderWidth: 4,
-          borderDash: [6,6],
+          borderDash: [6, 6],
           tension: 0.4,
           fill: false,
-
           pointRadius: 4,
           pointBackgroundColor: "dodgerblue",
           pointBorderColor: "dodgerblue",
           pointBorderWidth: 0,
-
           order: 1
         }
-
       ]
     },
-
     options: {
       responsive: true,
-
       animation: {
         duration: 1000,
         easing: "easeOutQuart"
       },
-
       plugins: {
         title: {
           display: true,
-          text: "Sleep Graph (Last 7 Days)",
+          text: "Sleep Graph: Daily Sleep, Average Sleep, and Recommended Sleep",
           color: "white"
         },
         legend: {
@@ -611,7 +630,6 @@ function renderSleepChart(daysArray, recommended) {
           }
         }
       },
-
       scales: {
         x: {
           ticks: {
@@ -624,11 +642,11 @@ function renderSleepChart(daysArray, recommended) {
         y: {
           beginAtZero: true,
           ticks: {
-            color: "white" 
+            color: "white"
           },
-         title: {
+          title: {
             display: true,
-            text: "Hours",
+            text: "Hours of Sleep",
             color: "white"
           },
           grid: {
@@ -638,168 +656,119 @@ function renderSleepChart(daysArray, recommended) {
       }
     }
   });
-}
-
-
+} // end of renderSleepChart function
 
 
 
 /*
-Summary: Calculates the names of the last 7 days (excluding today) based on the user's system date
-@parms: None
-@return: Array of Strings — 7 abbreviated day names (e.g. ["Mon", "Tue", ...])
+Summary: Calculates the names of the last 7 days, excluding today.
+@params: None
+@return: Array of Strings
 */
-function getLast7Days() {
-  // start of function var
-  const daysOfWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function getLastSevenDays() {
+  // function variable declarations
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let daysResult = [];
-
   let todaysDate = new Date();
-  // end of function var
+  let previousDate;
+  // end of function variable declarations
 
-
-
-  for(let i = 7; i >= 1; i--) {  // skips today
-    let d = new Date(todaysDate);
-    d.setDate(todaysDate.getDate() - i);
-
-    daysResult.push(daysOfWeek[d.getDay()]);
-  } //End of date loop
+  for (let dayCount = 7; dayCount >= 1; dayCount--) {
+    previousDate = new Date(todaysDate);
+    previousDate.setDate(todaysDate.getDate() - dayCount);
+    daysResult.push(daysOfWeek[previousDate.getDay()]);
+  } // end of date loop
 
   return daysResult;
-} //End of the getLast7Days function
-
-
+} // end of getLastSevenDays function
 
 
 
 /*
-Summary: Calculates the arithmetic average of all numeric values in a given array
-@parms: array (Array of Numbers)
-@return: Number — the average of the array, or 0 if the array is empty
+Summary: Calculates the arithmetic average of a numeric array.
+@params: numberList (Array)
+@return: Number
 */
-const calculateAverage = (array) => {
-  if (array.length === 0) return 0;
+function calculateAverage(numberList) {
+  // function variable declarations
+  let sleepSum = 0;
+  // end of function variable declarations
 
-  const sleepSum = array.reduce((sum, value) => sum + Number(value), 0);
+  if (numberList.length === 0) {
+    return 0;
+  } // end of empty array if
 
-  return sleepSum / array.length;
-}; //End of calculateAverage function
+  for (let sleepValue of numberList) {
+    sleepSum += Number(sleepValue);
+  } // end of sum loop
 
-
+  return sleepSum / numberList.length;
+} // end of calculateAverage function
 
 
 
 /*
-Summary: Capitalize First Letter Function 
-@parms: str (String)
-@return:String — Returns the input string with the first character capitalized
+Summary: Capitalizes the first letter of a string.
+@params: userText (String)
+@return: String
 */
-capitalizeFirstLetter = (str) => { 
-  if (!str) return ''; 
-  return str.charAt(0).toUpperCase() + str.slice(1); 
-} // End of Capitalize First Letter Function
+function capitalizeFirstLetter(userText) {
+  if (!userText) {
+    return "";
+  } // end of empty text if
 
-
+  return userText.charAt(0).toUpperCase() + userText.slice(1).toLowerCase();
+} // end of capitalizeFirstLetter function
 
 
 
 /*
-Summary: Gets username from the user via prompt, capitalizes it, confirms it, and updates the DOM element with id "username"
-@parms: userName (String — raw input), userNameCapitalized (String — formatted name)
-@return: None — Updates the global userNameCapitalized and the DOM
+Summary: Gets the user's name with prompt validation.
+@params: None
+@return: String
 */
 function getUsername() {
-  // start of function var
-  let userName = prompt("What is your name?");
-  let userNameCapitalized;
-  let usernameElement = document.getElementById("username");
-  // end of function var
+  // function variable declarations
+  let userName = prompt("What is your name?", "John Vatougios");
+  let userNameCapitalized = "";
+  let validNamePattern = /^[A-Za-z ]+$/;
+  // end of function variable declarations
 
-  
-
-  // keep reprompting if user gave empty/blank input
-  while ((userName !== null) && (userName.trim() === "")) {
-    userName = prompt("Please enter a name:");
-  } // End of while user need to enter a name
+  while ((userName !== null) && ((userName.trim() === "") || (!validNamePattern.test(userName.trim())))) {
+    userName = prompt("Please enter a name using letters and spaces only:", "John Vatougios");
+  } // end of name validation loop
 
   if (userName === null) {
     userNameCapitalized = "Mr. Vatougios";
   } else {
-    userNameCapitalized = capitalizeFirstLetter(userName.trim());
+    userNameCapitalized = userName.trim().split(" ").map(capitalizeFirstLetter).join(" ");
 
-    // confirm AFTER formatting
     if (!confirm(`Your name is "${userNameCapitalized}"?`)) {
       userNameCapitalized = "Mr. Vatougios";
       alert("Username set to default.");
-    }
-  }
-  
-  usernameElement.innerHTML = userNameCapitalized;
+    } // end of name confirmation if
+  } // end of name selection if
 
   return userNameCapitalized;
-} // End of assigning user name function
+} // end of getUsername function
 
 
 
-
-
-// ================= end of functions =================
-
+// ================= END OF FUNCTIONS =================
 
 
 
+// ================= BEGINNING OF PROGRAM =================
 
-// ================= START MAIN =================
+// Global Variable Declaration
+// None.
 
 window.addEventListener("load", function() {
-  sleepGame();
-});
+  // This event listener waits until the HTML, CSS, images, and canvas have loaded.
+  // The function inside is the program's main starting point.
+  setTimeout(function() {
+    sleepGame();
+  }, 500);
+}); // end of window load event listener
 
-// ================= end of main =================
-
-
-
-
-
-/* End of Program Notes
-get use info()
-> age
-> amount of sleep on avergae over past week
-> when sleep
-> when wake
-
-calculateDebt()
-> call getUserInfo() or grab value from storage
-> 
-
-output()
-> mortality rate
-> recommmmmmended sleep amount (average)
-> recommended sleep time & wake time
-> sleep debt
-> advice based on sleep debt and mortality rate
-> 
-
----
-
-
-Stuff to do
-
-7 part ui ux
-Confermation not on html
-Move everything into sleep function
-
-
-Test Code
-
-// Reset rock paper scissors function
-function resetRPSGame() {
-  playerChoice = '';
-  playerChoiceLowercase = '';
-  playerChoiceConverted = '';
-  playerChoiceConfirmation = '';
-  computerChoice = '';
-  RPSGame();
-} // End of reset rock paper scissors function
-*/
+// ================= END OF PROGRAM =================

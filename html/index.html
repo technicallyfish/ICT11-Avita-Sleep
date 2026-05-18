@@ -23,73 +23,53 @@
                 </ul>
             </nav>
 
-            <h1 id="Title">
-                SLEEP IS VERY² IMPORTANT
-            </h1>
+            <h1 id="Title">SLEEP IS VERY IMPORTANT</h1>
         </header>
 
         <main>
-            <h2>Hi <span id="username"></span>!</h2>
-            
+            <h2>Welcome <span id="username"></span> to Avita!</h2>
+
             <div class="section section-transparent">
                 <div class="section-content">
                     <p>
-                    Sleep, something that most of us take for granted, is a fundamental cornerstone for our health. Therefore, improving your sleep has ubiquitous positive impacts on your tomorrow but, more importantly, to the rest of your life as well. This coumpounding effect means that minor inconsistencies to your sleep can cause vast deterioriation of your health. This is why you should check your sleep debt with our sleep debt calculator, so that you find out if your sleep schedule is perfect or you can find out how to make vast improvements wihout doing vast amounts of additional work if it's not.
+                        Sleep is one of the foundations of good health. This calculator will ask you to follow the popups, enter your age, and enter 7 sleep values separated by commas. After that, it will show your average sleep, recommended sleep, weekly sleep difference, a chart, and a recommendation.
                     </p>
                 </div>
             </div>
-            
-            <div id="gameUI">
-                <div id="messageBox">
-                    <p id="messageText"></p>
-                </div>
-            
-            <div>
-                <div class="section-content">
-                    <div id="gameUI">
-                        <div id="messageBox">
-                            <p id="messageText"></p>
-                        </div>
 
-                        <div id="confirmArea" class="hidden">
-                            <p id="confirmText"></p>
-                            <button id="yesBtn">Yes</button>
-                            <button id="noBtn">No</button>
-                        </div>
+            <div class="section section-light">
+                <div class="section-content">
+                    <div id="BoxResult"></div>
+                </div>
+            </div>
+
+            <div class="section section-light">
+                <div class="section-content">
+                    <div id="BoxAdvice"></div>
+                </div>
+            </div>
+
+            <div class="section section-dark">
+                <div class="section-content">
+                    <h2>Sleep Chart</h2>
+                    <p class="chart-caption">
+                        Green bars meet or pass the recommendation, red bars are below it, the orange line is your average, and the blue dashed line is your recommended sleep.
+                    </p>
+                    <div id="graph-container">
+                        <canvas id="graph" width="1000" height="600"></canvas>
                     </div>
                 </div>
             </div>
 
-                <div class="section section-light">
-                    <div class="section-content">
-                        <div id="BoxResult"></div>
-                    </div>
-                </div>
-
-                <div class="section section-light">
-                    <div class="section-content">
-                        <div id="BoxAdvice"></div>
-                    </div>
-                </div>
-                
-                <div class="section section-dark">
-                    <div class="section-content">
-                        <div id="graph-container">
-                            <canvas id="graph" width="1000" height="600"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-             <div class="section section-transparent">
+            <div class="section section-transparent">
                 <h2>The 4 Pillars of Sleep</h2>
                 <div class="section-content">
                     <h3>1. Duration</h3>
                     <p>
-                        Most adults need between 7-9 hours of sleep each night to be at their healthiest. 
-                        Sleep debt is what happens when these sleep needs aren't being met. For example, 
+                        Most adults need between 7-9 hours of sleep each night to be at their healthiest.
+                        Sleep debt is what happens when these sleep needs are not being met. For example,
                         <br><br>
-                        if you need eight hours of sleep per night to feel well rested, and you've only gotten six hours of sleep for the past two nights; 
-                        you'd be two hours short each night, and thus have accumulated four hours of sleep debt over those two days.
+                        if you need eight hours of sleep per night to feel well rested, and you only get six hours of sleep for two nights, you are two hours short each night and have built up four hours of sleep debt.
                     </p>
                 </div>
             </div>
@@ -98,9 +78,9 @@
                 <div class="section-content">
                     <h3>2. Continuity</h3>
                     <p>
-                    Continuity is the ability to stay asleep without frequent wake-ups, which prevents the "fragmentation" that leaves you feeling groggy despite a long duration.
-                    <br><br>
-                    To improve this, optimize your environment by keeping your room cool, dark, and quiet, and avoid drinking large amounts of liquid right before bed to minimize middle-of-the-night disruptions.
+                        Continuity is the ability to stay asleep without frequent wake-ups. Strong continuity helps prevent the tired feeling that can happen even after a long night in bed.
+                        <br><br>
+                        To improve this, keep your room cool, dark, and quiet, and avoid drinking large amounts of liquid right before bed.
                     </p>
                 </div>
             </div>
@@ -109,39 +89,34 @@
                 <div class="section-content">
                     <h3>3. Regularity</h3>
                     <p>
-                    Regularity anchors your internal biological clock (circadian rhythm), making it easier to fall asleep and wake up naturally without an alarm.
-                    <br><br>
-                    The best way to use this is to stick to the same wake-up time every single day even on weekends which helps regulate the hormones that tell your body when to be alert and when to rest.
+                        Regularity anchors your internal clock, making it easier to fall asleep and wake up naturally.
+                        <br><br>
+                        The best way to build regularity is to keep the same wake-up time every day, including weekends.
                     </p>
                 </div>
             </div>
-            
+
             <div class="section section-transparent">
                 <div class="section-content">
                     <h3>4. Depth</h3>
                     <p>
-                    The value of depth lies in reaching the "slow-wave" and REM stages, which are critical for physical repair, immune function, and emotional processing.
-                    <br><br> 
-                    To improve this, focus on limiting alcohol and caffeine in the evening, as these substances chemically block your brain from entering the most restorative phases of sleep.
+                        Sleep depth matters because deep sleep and REM sleep help with physical repair, immune function, memory, and emotional processing.
+                        <br><br>
+                        To improve this, limit alcohol and caffeine in the evening so your body can reach more restorative sleep stages.
                     </p>
                 </div>
             </div>
- 
-
         </main>
-         
 
         <footer>
             <marquee scrollamount="25">
-                <p class="homePageText" id="authorCredits"> 
-                Made with Amelie's laptop by Amelie, Isaac, and Leo
+                <p class="homePageText" id="authorCredits">
+                    Made with GitHub by Amelie, Isaac, and Leo
                 </p>
             </marquee>
         </footer>
 
-
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../js/script.js" defer></script>
-
     </body>
 </html>
