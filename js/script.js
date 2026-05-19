@@ -433,7 +433,7 @@ function sleepAdvice(sleepDiff) {
   
   
 
-    if (isNaN(sleepDiff) || (sleepDiff < -24) || (sleepDiff > 24)) {
+  if (isNaN(sleepDiff) || (sleepDiff < -24) || (sleepDiff > 24)) {
     adviceGiven = "Error: sleep difference could not be interpreted correctly.";
   } // End of sleep difference error check
   else if (sleepDiff < -2) {
@@ -824,20 +824,31 @@ function getUsername() {
 
 
 
-// beginning of program
+// ================= START OF GLOBAL VAR ===============
+//NONE
+// ================ end of global var ==================
 
-// Global Variable Declaration
-// None
 
-// ================= START MAIN =================
+
+
+
+// ================= START OF PROGRAM ==================
+
+
+
+
 
 window.addEventListener("load", function() {
-  sleepGame();
-}); // End of load event listener, it runs the main sleepGame function after the page loads
+  // ================= START MAIN =================
+  sleepGame(); // this is the main sleepGame (master) function that calls various functions to run the entire program
+  // ================= end of main =================
+});
 
-// ================= end of main =================
 
-// end of program
+
+
+
+// ================= end of program ===================
 
 
 
