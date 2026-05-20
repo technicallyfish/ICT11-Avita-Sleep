@@ -74,8 +74,8 @@ Summary: Prints a clear section divider in the console
 @parms: sectionTitle (String)
 @return: None
 */
-function consoleDivider(sectionTitle) {
-  console.log(`\n==================== ${sectionTitle} ====================`);
+function consoleDivider() {
+  console.log(`\n-------------------------------------------------`);
 } // End of consoleDivider function
 
 
@@ -152,7 +152,7 @@ Summary: Intro Avita function
 @return: None - Logs stylized introduction text to the console.
 */
 function introAvita() {
-  consoleDivider("Introduction");
+  consoleDivider();
   console.log('%cWelcome to Avita sleep debt calculator.', 'color: turquoise; font-size: 30px');
   console.log('This is where you will be enlightened about your sleep!');
   console.log('%cIntroduction', 'color: turquoise; font-size: 20px');
@@ -169,7 +169,7 @@ Summary: Explanation Avita function
 @return: None - Displays game instructions via alerts and logs.
 */
 function explanationAvita() {
-  consoleDivider("Explanation");
+  consoleDivider();
   console.log('%cExplanation', 'color: turquoise; font-size: 20px');
   alert(`The sleep calculator.\n\nFollow the popups and prompts to calculate your sleep debt:\n1. Enter your age.\n2. Enter 7 sleep values for the past week, separated by commas.\n3. Receive your average sleep, recommended sleep, sleep debt, a chart summary, and advice.`);
   alert('Let\'s start!');
@@ -389,14 +389,14 @@ function calculateSleepDebt(sleepData, recommendedSleep, ageNumber) {
 
   sleepDifference = averageSleep - recommendedSleep;
 
-  consoleDivider("Results");
+  consoleDivider();
 
   sleepDifferenceMessage = sleepDifference === 0 ? "exactly the recommended amount" : `${Math.abs(sleepDifference).toFixed(2)} hours ${sleepDifference < 0 ? "less" : "more"} than recommended each night`;
   weeklyDifferenceMessage = sleepDifference === 0 ? "exactly the recommended amount" : `${Math.abs(sleepDifference * 7).toFixed(2)} hours ${sleepDifference < 0 ? "less" : "more"} than recommended`;
 
   resultMessage =`Results<br><br>You slept for an average of ${averageSleep.toFixed(2)} hours per night.<br>Your recommended sleep is ${recommendedSleep} hours per night.<br>${ageSleepExplanation}<br>Based on this information, you are sleeping ${sleepDifferenceMessage}.<br>Your weekly sleep difference is ${weeklyDifferenceMessage}.<br>`;
 
-  alertMessage =`Results:\n\nYou slept for an average of ${averageSleep.toFixed(2)} hours per night.\nYour recommended sleep is ${recommendedSleep} hours per night.\n${ageSleepExplanation}\nBased on this information, you are sleeping ${sleepDifferenceMessage}.\nYour weekly sleep difference is ${weeklyDifferenceMessage}.`;
+  alertMessage =`Results:\n\nYou slept for an average of ${averageSleep.toFixed(2)} hours per night.\nYour recommended sleep is ${recommendedSleep} hours per night.\n\n${ageSleepExplanation}\n\nBased on this information, you are sleeping ${sleepDifferenceMessage}.\nYour weekly sleep difference is ${weeklyDifferenceMessage}.`;
   console.log(alertMessage);
 
   finalResultHTML = resultMessage;
@@ -537,9 +537,9 @@ function consoleSleepGraph(daysArray, recommended) {
 
 
 
-  consoleDivider("Console Sleep Graph");
+  consoleDivider();
   console.log("%cSleep Graph (Last 7 Days)", "color: turquoise; font-size:20px");
-  console.log("%cLegend: %cGreen = daily sleep, %cOrange = average sleep, %cBlue = recommended sleep", "color:white; font-weight:bold", "color:limegreen", "color:orange", "color:dodgerblue");
+  console.log("%cLegend: %cGreen = daily sleep, %cOrange = average sleep, %cBlue = recommended sleep", "color:turquoise; font-weight:bold", "color:limegreen", "color:orange", "color:dodgerblue");
 
   // Daily bars
   for (let i = 0; i < daysArray.length; i++) {
@@ -552,7 +552,7 @@ function consoleSleepGraph(daysArray, recommended) {
 
     console.log(
       `%c${dayNames[i]} %c${bar} (${daysArray[i]}h)`,
-      "color:white",
+      "color:turquoise",
       "color:limegreen"
     );
   } // End of daily sleep graph loop
@@ -564,7 +564,7 @@ function consoleSleepGraph(daysArray, recommended) {
 
   console.log(
     `%cAVG %c${avgBar} (${sleepAverage.toFixed(2)}h)`,
-    "color:white",
+    "color:turquoise",
     "color:orange; font-weight:bold"
   );
 
@@ -575,7 +575,7 @@ function consoleSleepGraph(daysArray, recommended) {
 
   console.log(
     `%cREC %c${recBar} (${recommended}h)`,
-    "color:white",
+    "color:turquoise",
     "color:dodgerblue; font-weight:bold"
   );
 
