@@ -310,6 +310,8 @@ function sleepHandler(ageInput, sleepInput) {
       alert("Each day must be a number from 0-24.");
       askForSleep();
       return;
+    } else {
+      
     } // End of single sleep value check
   } //End of sleep length check
 
