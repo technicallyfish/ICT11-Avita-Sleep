@@ -62,11 +62,6 @@ function sleepGame() {
   welcomeAvita(getUsername());
   introAvita();
   explanationAvita();
-
-  do {
-    askForSleep();
-  } while (confirm("Do you want to calculate sleep debt again?")); // End of repeat calculator loop
-
   endRound();
 } //End of master function
 
@@ -515,6 +510,9 @@ Summary: Ends the program by showing a thank-you alert and displaying the final 
 */
 function endRound() {
   alert("Thanks for using Avita Sleep Debt Calculator. Be sure to Visit Avita Health & Wellness, any time you want to improve the quality of your life.");
+  do {
+    askForSleep();
+  } while (confirm("Do you want to calculate sleep debt again?")); // End of repeat calculator loop
 } //End of endRound funtion
 
 
@@ -730,6 +728,7 @@ function getLast7Days() {
 
   for(let i = 7; i >= 1; i--) {  // skips today
     let d = new Date(todaysDate);
+
     d.setDate(todaysDate.getDate() - i);
 
     daysResult.push(daysOfWeek[d.getDay()]);
@@ -839,9 +838,12 @@ function getUsername() {
 
 
 window.addEventListener("load", function() {
-  // ================= START MAIN =================
-  sleepGame(); // this is the main sleepGame (master) function that calls various functions to run the entire program
-  // ================= end of main =================
+  // WAITING 0.5 SECONDS (500 milliseconds) TO ENSURE HTML LOADS OKAY
+  setTimeout(function() {
+    // ================= START MAIN =================
+    sleepGame(); 
+    // ================= end of main =================
+  }, 500);
 });
 
 
