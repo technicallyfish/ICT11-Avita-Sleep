@@ -310,8 +310,6 @@ function sleepHandler(ageInput, sleepInput) {
       alert("Each day must be a number from 0-24.");
       askForSleep();
       return;
-    } else {
-      
     } // End of single sleep value check
   } //End of sleep length check
 
@@ -344,29 +342,43 @@ function getAgeSleepExplanation(ageNumber) {
 
 
 
-  switch (true) {
+  switch (ageNumber) {
+
     case (ageNumber <= 2):
+
       ageExplanation = "This amount of sleep is needed to support rapid brain growth, physical development, and immune function in babies and toddlers.";
       break;
+      
     case (ageNumber <= 5):
+
       ageExplanation = "This amount of sleep is needed to support learning, emotional control, growth, and healthy preschool development.";
       break;
+      
     case (ageNumber <= 12):
+
       ageExplanation = "This amount of sleep is needed to support attention, memory, school performance, and physical development in children.";
       break;
+
     case (ageNumber <= 18):
+
       ageExplanation = "This amount of sleep is needed to support memory, mood, attention, and major body and brain development during adolescence.";
       break;
+
     case (ageNumber <= 64):
+
       ageExplanation = "This amount of sleep is needed to support immune function, memory, stress recovery, and daily energy in adults.";
       break;
+
     default:
+
       ageExplanation = "This amount of sleep is needed to support memory, balance, immune health, and overall wellness in older adults.";
       break;
+
   } // End of age explanation selection
 
   return ageExplanation;
 } // End of getAgeSleepExplanation function
+
 
 
 
