@@ -290,6 +290,7 @@ function sleepHandler(ageInput, sleepInput) {
     alert("Please enter exactly 7 numbers separated by commas.");
     askForSleep();
     return;
+  } else {
   } //End of day amount check
 
   // Convert each day to number and validate
@@ -401,6 +402,7 @@ function calculateSleepDebt(sleepData, recommendedSleep, ageNumber) {
   // end of function var
   
 
+  
   sleepDifference = averageSleep - recommendedSleep;
 
   consoleDivider();
@@ -408,9 +410,9 @@ function calculateSleepDebt(sleepData, recommendedSleep, ageNumber) {
   sleepDifferenceMessage = sleepDifference === 0 ? "exactly the recommended amount" : `${Math.abs(sleepDifference).toFixed(2)} hours ${sleepDifference < 0 ? "less" : "more"} than recommended each night`;
   weeklyDifferenceMessage = sleepDifference === 0 ? "exactly the recommended amount" : `${Math.abs(sleepDifference * 7).toFixed(2)} hours ${sleepDifference < 0 ? "less" : "more"} than recommended`;
 
-  resultMessage =`Results<br><br>You slept for an average of ${averageSleep.toFixed(2)} hours per night.<br>Your recommended sleep is ${recommendedSleep} hours per night.<br>${ageSleepExplanation}<br>Based on this information, you are sleeping ${sleepDifferenceMessage}.<br>Your weekly sleep difference is ${weeklyDifferenceMessage}.<br>`;
+  resultMessage =`Results:<br><br>You slept for an average of ${averageSleep.toFixed(2)} hours per night.<br><br>Your recommended sleep is ${recommendedSleep} hours per night.<br>${ageSleepExplanation}<br><br>Based on this information, you are sleeping ${sleepDifferenceMessage}.<br>Your weekly sleep difference is ${weeklyDifferenceMessage}.<br>`;
 
-  alertMessage =`Results:\n\nYou slept for an average of ${averageSleep.toFixed(2)} hours per night.\nYour recommended sleep is ${recommendedSleep} hours per night.\n\n${ageSleepExplanation}\n\nBased on this information, you are sleeping ${sleepDifferenceMessage}.\nYour weekly sleep difference is ${weeklyDifferenceMessage}.`;
+  alertMessage =`Results:\n\nYou slept for an average of ${averageSleep.toFixed(2)} hours per night.\n\nYour recommended sleep is ${recommendedSleep} hours per night.\n${ageSleepExplanation}\n\nBased on this information, you are sleeping ${sleepDifferenceMessage}.\nYour weekly sleep difference is ${weeklyDifferenceMessage}.`;
   console.log(alertMessage);
 
   finalResultHTML = resultMessage;
@@ -482,9 +484,9 @@ function sleepAdvice(sleepDiff) {
   } // End of major oversleeping check
 
   htmlAdvice = adviceGiven.replace(/\n/g, "<br>");
-  adviceBox.innerHTML = `<b>Recommendation:</b><br>${htmlAdvice}`;
+  adviceBox.innerHTML = `<b>Recommendation:</b><br><br>${htmlAdvice}`;
 
-  alert("Recommendation:\n" + adviceGiven);
+  alert("Recommendation:\n\n" + adviceGiven);
   consoleDivider("Recommendation");
   console.log("%cRecommendation", "color: turquoise; font-size:20px");
   console.log(adviceGiven);
