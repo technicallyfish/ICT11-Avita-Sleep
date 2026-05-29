@@ -62,6 +62,7 @@ function sleepGame() {
   welcomeAvita(getUsername());
   introAvita();
   explanationAvita();
+  askForSleep();
   thankYouSleep();
 } //End of master function
 
@@ -174,11 +175,11 @@ Summary: Explanation Avita function
 @return: None - Displays game instructions via alerts and logs.
 */
 function explanationAvita() {
-  alert(`The sleep calculator.\n\nFollow the popups and prompts to calculate your sleep debt:\n1. Enter your age.\n2. Enter 7 sleep values for the past week, separated by commas.\n3. Receive your average sleep, recommended sleep, sleep debt, a chart summary, and advice.`);
+  alert(`The sleep calculator.\n\nFollow the popups and prompts to calculate your sleep debt:\n1. Enter your age.\n2. Enter 7 sleep values for the past week, separated by commas.\n3. Confirm your data (age and sleep hours).\n4. Receive your average sleep, recommended sleep, sleep advice, sleep debt, and a chart summary.`);
   alert('Let\'s start!');
   consoleDivider();
   console.log('%cExplanation', 'color: turquoise; font-size: 20px');
-  console.log(`The sleep calculator.\n\nFollow the popups and prompts to calculate your sleep debt:\n1. Enter your age.\n2. Enter 7 sleep values for the past week, separated by commas.\n3. Receive your average sleep, recommended sleep, sleep debt, a chart summary, and advice.`);
+  console.log(`The sleep calculator.\n\nFollow the popups and prompts to calculate your sleep debt:\n1. Enter your age.\n2. Enter 7 sleep values for the past week, separated by commas.\n3. Confirm your data (age and sleep hours).\n4. Receive your average sleep, recommended sleep, sleep advice, sleep debt, and a chart summary.`);
 } // End of explanation Avita function
 
 
@@ -547,13 +548,12 @@ function thankYouSleep() {
   console.log('%cThanks for using Avita Sleep Debt Calculator. Be sure to Visit Avita Health & Wellness, any time you want to improve the quality of your life, and come back the next time you need to assess your sleep.', 'color: #3399FF');
 
   
-  do {
+  while (confirm("Do you want to calculate sleep debt again from the beginning?")) {
     askForSleep();
-  } while (confirm("Do you want to calculate sleep debt again from the beginning?")); // End of repeat calculator loop
+  } // end of confirm restart program while loop
 
 
-
-} //End of thankYouSleep funtion
+} //End of thankYouSleep function
 
 
 
@@ -604,11 +604,7 @@ function consoleSleepGraph(daysArray, recommendedHours) {
 
 
 
-    console.log(
-      `%c${dayNames[currentDay]} %c${currentBar} (${daysArray[currentDay]}h)`,
-      "color:turquoise",
-      "color:limegreen"
-    );
+    console.log(`%c${dayNames[currentDay]} %c${currentBar} (${daysArray[currentDay]}h)`, "color:turquoise", "color:limegreen");
   } // End of daily sleep graph loop
 
 
