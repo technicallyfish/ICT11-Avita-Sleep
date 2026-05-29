@@ -1,8 +1,8 @@
 
 /* 
 
-	Title: Sleep
-	Program Summary: We answer the question "Will you die from your horrible sleep schedule?"
+	Title: Avita Sleep Debt Calculator
+	Program Summary: We answer the question "Will you die from your horrible sleep schedule?" and give you some adivce on how to not do that actually
 	
 	Important (KEY) Program Elements Used: 
 
@@ -36,7 +36,7 @@
 
 	Authors (Teammates/Owners/Project Roles): Amelie (Ruohan) Shen, Leo Hougaard, Isaac Leon Calderon
 	
-	Version (Project Iteration): 2.0 (Submission)
+	Version (Project Iteration): 3.0 (resubmission)
 	
 	Date (Last Edited): 03/29/2026
 
@@ -641,14 +641,14 @@ Summary:Renders an interactive Chart.js bar and line chart on the canvas element
 @parms: daysArray (Array of Numbers — sleep hours per day), recommended (Number — recommended hours)
 @return: None — Assigns the chart instance to window.sleepChart
 */
-function renderSleepChart(daysArray, recommended) {
+function renderSleepChart(daysArray, recommendedHours) {
 
 
 
   // function var
   const ctx = document.getElementById("graph").getContext("2d");
   const dayNames = getLast7Days();
-  const average = calculateAverage(daysArray); // ***
+  const averageSleepHours = calculateAverage(daysArray); 
   // end of function var
 
 
@@ -683,7 +683,7 @@ function renderSleepChart(daysArray, recommended) {
         {
           type: "line",
           label: "Average",
-          data: new Array(7).fill(average),
+          data: new Array(7).fill(averageSleepHours),
           borderColor: "orange",
           borderWidth: 4,
           tension: 0.4,
@@ -701,7 +701,7 @@ function renderSleepChart(daysArray, recommended) {
         {
           type: "line",
           label: "Recommended",
-          data: new Array(7).fill(recommended),
+          data: new Array(7).fill(recommendedHours),
           borderColor: "dodgerblue",
           borderWidth: 4,
           borderDash: [6,6],
@@ -815,6 +815,13 @@ Summary: Calculates the arithmetic average of all numeric values in a given arra
 @return: Number — the average of the array, or 0 if the array is empty
 */
 function calculateAverage(sleepValuesArray) {
+  
+  
+  
+  // start of function var
+  let sleepSum = 0;
+  let sleepIndex;
+  // end of function var
 
 
 
@@ -824,7 +831,12 @@ function calculateAverage(sleepValuesArray) {
 
 
 
-  const sleepSum = sleepValuesArray.reduce((sum, value) => sum + Number(value), 0); // ***
+  // Add each sleep value to the total sleep sum
+  for (sleepIndex = 0; sleepIndex < sleepValuesArray.length; sleepIndex++) {
+    sleepSum += Number(sleepValuesArray[sleepIndex]);
+  } // End of sleep sum loop
+
+
 
   return sleepSum / sleepValuesArray.length;
 }; //End of calculateAverage function
