@@ -24,12 +24,12 @@
             </nav>
 
             <h1 id="Title">
-                SLEEP IS VERY² IMPORTANT
+                SLEEP IS VERY IMPORTANT
             </h1>
         </header>
 
         <main>
-            <h2>Hi <span id="username"></span>!</h2>
+            <h2>Welcome, <span id="username"></span>, to the Avita Sleep Calculator!</h2>
             
             <div class="section section-transparent">
                 <div class="section-content">
@@ -39,48 +39,27 @@
                 </div>
             </div>
             
-            <div id="gameUI">
-                <div id="messageBox">
-                    <p id="messageText"></p>
-                </div>
-            
-            <div>
+            <div class="section section-light">
                 <div class="section-content">
-                    <div id="gameUI">
-                        <div id="messageBox">
-                            <p id="messageText"></p>
-                        </div>
+                    <div id="BoxResult"></div>
+                </div>
+            </div>
 
-                        <div id="confirmArea" class="hidden">
-                            <p id="confirmText"></p>
-                            <button id="yesBtn">Yes</button>
-                            <button id="noBtn">No</button>
-                        </div>
+            <div class="section section-light">
+                <div class="section-content">
+                    <div id="BoxAdvice"></div>
+                </div>
+            </div>
+                
+            <div class="section section-dark">
+                <div class="section-content">
+                    <div id="graph-container">
+                        <canvas id="graph" width="1000" height="600"></canvas>
                     </div>
                 </div>
             </div>
 
-                <div class="section section-light">
-                    <div class="section-content">
-                        <div id="BoxResult"></div>
-                    </div>
-                </div>
-
-                <div class="section section-light">
-                    <div class="section-content">
-                        <div id="BoxAdvice"></div>
-                    </div>
-                </div>
-                
-                <div class="section section-dark">
-                    <div class="section-content">
-                        <div id="graph-container">
-                            <canvas id="graph" width="1000" height="600"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-             <div class="section section-transparent">
+            <div class="section section-transparent">
                 <h2>The 4 Pillars of Sleep</h2>
                 <div class="section-content">
                     <h3>1. Duration</h3>
@@ -132,8 +111,21 @@
          
 
         <footer>
+                <p class="homePageText" id="authorCredits">
+                    Thank you for using the Avita Sleep Calculator! Visit
+                    <br><br>
+                    <a href="https://avitahealth.ca/" style="color: inherit;">
+                        Avita Health &amp; Wellness
+                    </a>
+
+                    <br>
+
+                    for massage therapy, wellness support, and healthier sleep routines.
+                    Book a visit, connect with us, and come back anytime!
+
+                </p>
             <marquee scrollamount="25">
-                <p class="homePageText" id="authorCredits"> 
+                <p class="homePageText" id="authorCreditsMarquee">
                 Made with Amelie's laptop by Amelie, Isaac, and Leo
                 </p>
             </marquee>
